@@ -2,56 +2,85 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Cyber Security / Hacker Theme Design System
+ * Dark terminal aesthetic with neon green accents
+ * All colors MUST be HSL.
+ */
 
 @layer base {
   :root {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
+    /* Core colors - deep blacks and terminal greens */
+    --background: 120 5% 5%;
+    --foreground: 120 100% 85%;
 
-    --card: 240 6% 6%;
-    --card-foreground: 0 0% 98%;
+    --card: 120 5% 8%;
+    --card-foreground: 120 100% 85%;
 
-    --popover: 240 6% 6%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 120 5% 8%;
+    --popover-foreground: 120 100% 85%;
 
-    --primary: 263 70% 50%;
-    --primary-foreground: 0 0% 100%;
+    /* Primary - neon matrix green */
+    --primary: 120 100% 50%;
+    --primary-foreground: 120 5% 5%;
     
-    --primary-glow: 263 90% 65%;
+    /* Glowing variant */
+    --primary-glow: 120 100% 65%;
+    --primary-dim: 120 80% 35%;
 
-    --secondary: 240 4% 16%;
-    --secondary-foreground: 0 0% 98%;
+    /* Secondary - dark grey with green tint */
+    --secondary: 120 5% 15%;
+    --secondary-foreground: 120 100% 85%;
 
-    --muted: 240 4% 16%;
-    --muted-foreground: 240 5% 64.9%;
+    /* Muted - subtle green tint */
+    --muted: 120 5% 15%;
+    --muted-foreground: 120 20% 50%;
 
-    --accent: 263 70% 50%;
-    --accent-foreground: 0 0% 100%;
+    /* Accent - bright neon green */
+    --accent: 120 100% 50%;
+    --accent-foreground: 120 5% 5%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
+    /* Destructive - red for errors/warnings */
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 240 6% 12%;
-    --input: 240 6% 12%;
-    --ring: 263 70% 50%;
+    /* Terminal colors */
+    --terminal: 120 5% 10%;
+    --terminal-text: 120 100% 75%;
+    --cursor: 120 100% 50%;
 
-    --radius: 0.75rem;
+    /* Borders and inputs */
+    --border: 120 30% 20%;
+    --input: 120 30% 20%;
+    --ring: 120 100% 50%;
 
-    /* Custom gradient tokens */
-    --gradient-primary: linear-gradient(135deg, hsl(263 70% 50%) 0%, hsl(240 70% 60%) 100%);
-    --gradient-mesh: radial-gradient(at 40% 20%, hsl(263 90% 40% / 0.3) 0px, transparent 50%),
-                      radial-gradient(at 80% 0%, hsl(240 90% 50% / 0.2) 0px, transparent 50%),
-                      radial-gradient(at 0% 50%, hsl(263 90% 40% / 0.2) 0px, transparent 50%);
+    --radius: 0.25rem;
+
+    /* Cyber gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(120 100% 50%) 0%, hsl(140 100% 50%) 100%);
+    --gradient-mesh: radial-gradient(at 40% 20%, hsl(120 100% 30% / 0.15) 0px, transparent 50%),
+                      radial-gradient(at 80% 0%, hsl(140 100% 30% / 0.1) 0px, transparent 50%),
+                      radial-gradient(at 0% 50%, hsl(120 100% 30% / 0.1) 0px, transparent 50%);
     
-    /* Shadows with primary color */
-    --shadow-glow: 0 0 60px hsl(263 70% 50% / 0.3);
-    --shadow-elegant: 0 20px 50px -12px hsl(0 0% 0% / 0.5);
+    /* Matrix rain effect */
+    --gradient-rain: linear-gradient(180deg, transparent 0%, hsl(120 100% 50% / 0.1) 50%, transparent 100%);
+    
+    /* Glowing shadows */
+    --shadow-glow: 0 0 40px hsl(120 100% 50% / 0.3), 0 0 80px hsl(120 100% 50% / 0.15);
+    --shadow-terminal: 0 8px 32px hsl(120 100% 50% / 0.15);
+    --shadow-text: 0 0 10px hsl(120 100% 50% / 0.5);
+    
+    /* Scan line effect */
+    --scanline: repeating-linear-gradient(
+      0deg,
+      rgba(0, 255, 0, 0.05),
+      rgba(0, 255, 0, 0.05) 1px,
+      transparent 1px,
+      transparent 2px
+    );
     
     /* Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-glow: all 0.5s ease-in-out;
   }
 }
 
@@ -62,10 +91,91 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Fira Code', 'Courier New', monospace;
     font-feature-settings: 'rlig' 1, 'calt' 1;
+    /* Custom hacker cursor */
+    cursor: url("data:image/svg+xml,%3Csvg width='24' height='24' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='0' y='20' font-size='20' fill='%2300ff00'%3E▮%3C/text%3E%3C/svg%3E") 12 12, auto;
+    /* Subtle scan line overlay */
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--scanline);
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.5;
   }
   
   html {
     scroll-behavior: smooth;
+  }
+
+  /* Terminal-style text glow effect */
+  .text-glow {
+    text-shadow: var(--shadow-text);
+  }
+
+  /* Blinking cursor animation */
+  @keyframes blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
+
+  .cursor-blink::after {
+    content: '▮';
+    animation: blink 1s infinite;
+    margin-left: 2px;
+  }
+
+  /* Matrix rain animation */
+  @keyframes matrix-rain {
+    0% { transform: translateY(-100%); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(100vh); opacity: 0; }
+  }
+
+  /* Terminal typing effect */
+  @keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+
+  /* Glitch effect */
+  @keyframes glitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+  }
+}
+
+/* Custom utility classes */
+@layer utilities {
+  .terminal-border {
+    border: 1px solid hsl(var(--border));
+    box-shadow: 0 0 10px hsl(120 100% 50% / 0.2),
+                inset 0 0 10px hsl(120 100% 50% / 0.05);
+  }
+
+  .neon-glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .text-terminal {
+    color: hsl(var(--terminal-text));
+    font-family: 'Fira Code', 'Courier New', monospace;
+  }
+
+  .bg-terminal {
+    background-color: hsl(var(--terminal));
   }
 }

@@ -100,11 +100,37 @@ export default {
         },
         "glow": {
           "0%, 100%": {
-            boxShadow: "0 0 20px hsl(263 70% 50% / 0.3)",
+            boxShadow: "0 0 20px hsl(120 100% 50% / 0.3)",
           },
           "50%": {
-            boxShadow: "0 0 40px hsl(263 70% 50% / 0.5)",
+            boxShadow: "0 0 40px hsl(120 100% 50% / 0.5), 0 0 60px hsl(120 100% 50% / 0.2)",
           },
+        },
+        "pulse-glow": {
+          "0%, 100%": {
+            opacity: "1",
+            boxShadow: "0 0 10px hsl(120 100% 50% / 0.5)",
+          },
+          "50%": {
+            opacity: "0.8",
+            boxShadow: "0 0 20px hsl(120 100% 50% / 0.8)",
+          },
+        },
+        "terminal-blink": {
+          "0%, 49%": { opacity: "1" },
+          "50%, 100%": { opacity: "0" },
+        },
+        "scan": {
+          "0%": { transform: "translateY(-100%)" },
+          "100%": { transform: "translateY(100%)" },
+        },
+        "glitch": {
+          "0%": { transform: "translate(0)" },
+          "20%": { transform: "translate(-2px, 2px)" },
+          "40%": { transform: "translate(-2px, -2px)" },
+          "60%": { transform: "translate(2px, 2px)" },
+          "80%": { transform: "translate(2px, -2px)" },
+          "100%": { transform: "translate(0)" },
         },
       },
       animation: {
@@ -113,6 +139,10 @@ export default {
         "fade-up": "fade-up 0.6s ease-out",
         "fade-in": "fade-in 0.4s ease-out",
         "glow": "glow 3s ease-in-out infinite",
+        "pulse-glow": "pulse-glow 2s ease-in-out infinite",
+        "terminal-blink": "terminal-blink 1s step-end infinite",
+        "scan": "scan 8s linear infinite",
+        "glitch": "glitch 0.3s ease-in-out",
       },
     },
   },
